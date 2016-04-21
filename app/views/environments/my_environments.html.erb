@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+<h2>Your Demo Environments<small> Time to refresh?</small></h2>
+
+  <table class="table table-striped">
+  <thead>
+  <tr>
+    <th><h3>Servername</h3></th>
+    <th><h3>Location</h3></th>
+    <th colspan="5"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @environments.each do |environment| %>
+      <tr>
+        <td><h5><%= environment.servername %></h5></td>
+        <td><h5><%= environment.location %></h5></td>
+        <td><%= link_to 'Show', environment, class: 'btn btn-default' %> </td>
+        <td><%= link_to 'Edit', edit_environment_path(environment),  class: 'btn btn-warning' %></td>
+        <td><%= link_to 'Destroy', environment, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
