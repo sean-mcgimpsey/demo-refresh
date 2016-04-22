@@ -1,9 +1,10 @@
 class EnvironmentsController < ApplicationController
   before_action :set_environment, only: [:show, :edit, :update, :destroy]
-
+  before_action :require_admin, except: [:my_environments, :refresh]
   # GET /environments
   # GET /environments.json
   def index
+    @environment = Environment.all
   end
 
   # GET /environments/1
@@ -17,7 +18,7 @@ class EnvironmentsController < ApplicationController
   end
 
   def my_environments
-    @environments = current_user.environments
+    @environment = current_user.environments
   end
   # GET /environments/1/edit
   def edit
@@ -64,6 +65,11 @@ class EnvironmentsController < ApplicationController
     end
   end
 
+  def refresh
+    system('date')
+    flash[:notice] = "Refresh of started"
+    redirect_to root_path
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_environment
@@ -74,4 +80,10 @@ class EnvironmentsController < ApplicationController
     def environment_params
       params.require(:environment).permit(:servername, :location, :user_id)
     end
+   def require_admin
+    if !user_signed_in? || (user_signed_in? and !current_user.admin?)
+      flash[:danger] = "only admins can perform that action"
+      redirect_to root_path
+    end
+   end
 end

@@ -12,15 +12,14 @@
   </thead>
 
   <tbody>
-    <% @environments.each do |environment| %>
+  <% @environment.each do |environment| %>
       <tr>
-        <td><%= environment.servername %></td>
-        <td><%= environment.location %></td>
-        <td><%= link_to 'Show', environment %></td>
-        <td><%= link_to 'Edit', edit_environment_path(environment) %></td>
-        <td><%= link_to 'Destroy', environment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><h5><%= environment.servername %></h5></td>
+        <td><h5><%= environment.location %></h5></td>
+        <td><%= link_to 'Edit', edit_environment_path(environment),  class: 'btn btn-warning' %></td>
+        <td><%= link_to 'Destroy', environment, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
       </tr>
-    <% end %>
+  <% end %>
   </tbody>
 </table>
 
