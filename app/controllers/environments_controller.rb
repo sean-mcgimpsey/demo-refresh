@@ -66,10 +66,22 @@ class EnvironmentsController < ApplicationController
   end
 
   def refresh
-    system('date')
-    flash[:notice] = "Refresh of started"
-    redirect_to root_path
-  end
+    @environment = Environment.find(params[:id])	
+     if system("touch /var/www/demo-requests/#{@environment.servername}-`date +%m.%d.%Y`") 
+	flash[:notice] = "Refresh of #{@environment.servername}  started"
+    	redirect_to root_path
+     else
+    	flash[:danger] = "Could not start refresh"
+   	redirect_to root_path
+     end
+end
+
+end
+
+
+
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_environment
@@ -78,7 +90,7 @@ class EnvironmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def environment_params
-      params.require(:environment).permit(:servername, :location, :user_id)
+      params.require(:environment).permit(:servername, :location, :user_id, :status)
     end
    def require_admin
     if !user_signed_in? || (user_signed_in? and !current_user.admin?)
@@ -86,4 +98,4 @@ class EnvironmentsController < ApplicationController
       redirect_to root_path
     end
    end
-end
+
