@@ -15,6 +15,8 @@ gem 'coffee-script-source', '1.8.0'
 gem 'twitter-bootstrap-rails'
 gem 'devise-bootstrap-views'
 gem 'whenever', :require => false
+gem 'omniauth-google-oauth2'
+gem 'figaro'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 gem 'devise'

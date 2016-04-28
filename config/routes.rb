@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     put :refresh, :on => :collection
   end
    root 'environments#my_environments'
-  devise_for :users
+  devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
 
 get 'environments/:id/refresh' => 'environments#refresh', as: :refresh
 
